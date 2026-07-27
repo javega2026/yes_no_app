@@ -5,12 +5,15 @@ class MessageFieldBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final textController =TextEditingController();
     final outlineInputBorder = OutlineInputBorder(
       borderSide: const BorderSide(color: Colors.transparent),
       borderRadius: BorderRadius.circular(40),
     );
 
     final inputDecoration = InputDecoration(
+      hintText:"Escribe un mesaje",
       enabledBorder: outlineInputBorder,
       focusedBorder: outlineInputBorder,
       filled: true,
