@@ -5,10 +5,15 @@ class MyMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors =Theme.of(context).colorScheme;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Container(
-          decoration: BoxDecoration(color: Colors.black),
+          decoration: BoxDecoration(
+            color: colors.primary,
+            borderRadius: BorderRadius.circular(20),
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text(
@@ -22,8 +27,3 @@ class MyMessageBubble extends StatelessWidget {
     );
   }
 }
-//prueba
-//otro cambio
-//tercer cambio
-//esto es login
-//nuevo codgio creado en login
