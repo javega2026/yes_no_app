@@ -48,13 +48,14 @@ class _ImageBubble extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: colorDeFondo,
-        borderRadius: BorderRadius.circular(100),
+        borderRadius: BorderRadius.circular(10),
         border: Border.all(color: Colors.black, width: 5),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(10),
         child: Image.network(
-          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
+          //'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
+          "https://yesno.wtf/assets/yes/5-64c2804cc48057b94fd0b3eaf323d92c.gif",
           width: size.width*0.30,  //ocupa el 30%
           height:160,
           fit: BoxFit.cover,
