@@ -5,33 +5,38 @@ class MessageFieldBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textController = TextEditingController();
+    final focusNode = FocusNode();
 
-    final textController =TextEditingController();
     final outlineInputBorder = OutlineInputBorder(
       borderSide: const BorderSide(color: Colors.transparent),
       borderRadius: BorderRadius.circular(40),
     );
 
     final inputDecoration = InputDecoration(
-      hintText:"Escribe un mesaje",
+      hintText: 'Escribe un mesaje "?"',
       enabledBorder: outlineInputBorder,
       focusedBorder: outlineInputBorder,
       filled: true,
       suffixIcon: IconButton(
         icon: const Icon(Icons.send_outlined),
         onPressed: () {
-          print('value de la caja de texto');
+          final textValue = textController.text;
+          print('button $textValue');
+          textController.clear(); // Limpiar el campo de texto después de enviar
         },
       ),
     );
 
     return TextFormField(
+      onTapOutside: (event) => focusNode.unfocus(),
+      focusNode: focusNode,
+      controller: textController,
       decoration: inputDecoration,
       onFieldSubmitted: (value) {
-        print('Valor enviado: $value');
-      },
-      onChanged: (value) {
-        print('Valor cambiado: $value');
+        print('Submit value: $value');
+        textController.clear(); // Limpiar el campo de texto después de enviar
+        focusNode.requestFocus();
       },
     );
   }
