@@ -34,10 +34,18 @@ class ChatProvider extends ChangeNotifier {
   Future<void> moveScrollToBottom() async {
     await Future.delayed(const Duration(milliseconds: 700));
 
+    if (!chatScrollController.hasClients) return;
+
     chatScrollController.animateTo(
       chatScrollController.position.maxScrollExtent,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,
     );
+  }
+
+  @override
+  void dispose() {
+    chatScrollController.dispose();
+    super.dispose();
   }
 }

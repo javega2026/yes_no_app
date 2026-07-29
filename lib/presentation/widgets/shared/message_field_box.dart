@@ -1,14 +1,42 @@
 import 'package:flutter/material.dart';
 
-class MessageFieldBox extends StatelessWidget {
+class MessageFieldBox extends StatefulWidget {
   final ValueChanged<String> onValue;
   const MessageFieldBox({super.key, required this.onValue});
 
   @override
-  Widget build(BuildContext context) {
-    final textController = TextEditingController();
-    final focusNode = FocusNode();
+  State<MessageFieldBox> createState() => _MessageFieldBoxState();
+}
 
+class _MessageFieldBoxState extends State<MessageFieldBox> {
+  late final TextEditingController textController;
+  late final FocusNode focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    textController = TextEditingController();
+    focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    textController.dispose();
+    focusNode.dispose();
+    super.dispose();
+  }
+
+  void _sendMessage() {
+    final textValue = textController.text.trim();
+    if (textValue.isEmpty) return;
+
+    widget.onValue(textValue);
+    textController.clear();
+    focusNode.requestFocus();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final outlineInputBorder = OutlineInputBorder(
       borderSide: const BorderSide(color: Colors.transparent),
       borderRadius: BorderRadius.circular(40),
@@ -21,12 +49,7 @@ class MessageFieldBox extends StatelessWidget {
       filled: true,
       suffixIcon: IconButton(
         icon: const Icon(Icons.send_outlined),
-        onPressed: () {
-          final textValue = textController.value.text;
-          textController.clear(); // Limpiar el campo de texto después de enviar
-          onValue(textValue);
-          //print('button $textValue');
-        },
+        onPressed: _sendMessage,
       ),
     );
 
@@ -35,12 +58,8 @@ class MessageFieldBox extends StatelessWidget {
       focusNode: focusNode,
       controller: textController,
       decoration: inputDecoration,
-      onFieldSubmitted: (value) {
-        //print('Submit value: $value');
-        textController.clear(); // Limpiar el campo de texto después de enviar
-        focusNode.requestFocus();
-        onValue(value);
-      },
+      textInputAction: TextInputAction.send,
+      onFieldSubmitted: (_) => _sendMessage(),
     );
   }
 }

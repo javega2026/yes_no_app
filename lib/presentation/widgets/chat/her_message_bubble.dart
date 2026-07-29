@@ -28,9 +28,10 @@ class HerMessageBubble extends StatelessWidget {
         ),
         const SizedBox(height: 5),
 
-        // Todo: image
-        _ImageBubble(message.imageUrl!),
-        const SizedBox(height: 10),
+        if (message.imageUrl != null && message.imageUrl!.isNotEmpty) ...[
+          _ImageBubble(message.imageUrl!),
+          const SizedBox(height: 10),
+        ],
       ],
     );
   }
